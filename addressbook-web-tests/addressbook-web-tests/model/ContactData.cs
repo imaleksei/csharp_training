@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace WebAddressBookTests
 {
-    public class AddressbookData
+    public class ContactData
     {
         private string firstName;
         private string lastName;
@@ -34,7 +30,7 @@ namespace WebAddressBookTests
         private string ayear = "";
         private string photo = "C:\\xampp\\TestAdditions\\Capture.PNG";
 
-        public AddressbookData(string firstName, string lastName)
+        public ContactData(string firstName, string lastName)
         {
             this.firstName = firstName;
             this.lastName = lastName;
