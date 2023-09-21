@@ -5,6 +5,7 @@ namespace WebAddressBookTests
 {
     public class ContactHelper : HelperBase
     {
+        private bool acceptNextAlert = true;
 
         public ContactHelper(IWebDriver driver)
             : base(driver) { }
@@ -94,6 +95,52 @@ namespace WebAddressBookTests
         {
             driver.FindElement(By.XPath("//input[21]")).Click();
             return this;
+        }
+
+        public ContactHelper ChooseAddressbookElement(string indexString)
+        {
+            driver.FindElement(By.Id(indexString)).Click();
+            return this;
+        }
+
+        public ContactHelper SubmitAddressbookElementDeleting()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
+        }
+
+        public ContactHelper InitAddressbookElementEditing()
+        {
+            driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();
+            return this;
+        }
+
+        public ContactHelper SubmitAddressbookElementEditing()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+        
+    public string AcceptAlert()
+        {
+            try
+            {
+                IAlert alert = driver.SwitchTo().Alert();
+                string alertText = alert.Text;
+                if (acceptNextAlert)
+                {
+                    alert.Accept();
+                }
+                else
+                {
+                    alert.Dismiss();
+                }
+                return alertText;
+            }
+            finally
+            {
+                acceptNextAlert = true;
+            }
         }
     }
 }
