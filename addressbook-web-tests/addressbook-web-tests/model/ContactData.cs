@@ -20,7 +20,7 @@ namespace WebAddressBookTests
         private string emailThree = "";
         private string homepage = "";
         private string addressTwo = "";
-        private string homeTwo = "";
+        private string phoneTwo = "";
         private string notes = "";
         private string bday = "-";
         private string bmonth = "-";
@@ -227,15 +227,15 @@ namespace WebAddressBookTests
             }
         }
 
-        public string HomeTwo
+        public string PhoneTwo
         {
             get
             {
-                return homeTwo;
+                return phoneTwo;
             }
             set
             {
-                homeTwo = value;
+                phoneTwo = value;
             }
         }
 

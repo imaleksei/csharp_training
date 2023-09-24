@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using System.Reflection;
 
 namespace WebAddressBookTests
 {
@@ -22,7 +23,7 @@ namespace WebAddressBookTests
         public GroupHelper Remove(int p)
         {
             manager.Navigation.GoToGroupsPage();
-
+            //IsGroupElementExists(p, group);
             SelectGroup(p);
             RemoveGroup();
             ReturnToGroupsPage();
@@ -43,6 +44,16 @@ namespace WebAddressBookTests
 
         //---
 
+        public GroupHelper IsGroupElementExists(int index, GroupData group)
+        {
+            var element = driver.FindElement(By.XPath("//div[@id='content']/form/span[" + index + "]/input"));
+            if (element == null)
+            {
+                Create(group);
+            }
+            return this;
+        }
+
         public GroupHelper InitNewGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
@@ -52,15 +63,9 @@ namespace WebAddressBookTests
 
         public GroupHelper FillGroupForm(GroupData group)
         {
-            driver.FindElement(By.Name("group_name")).Click();
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Click();
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Click();
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            Type(By.Name("group_name"), group.Name);
+            Type(By.Name("group_header"), group.Header);
+            Type(By.Name("group_footer"), group.Footer);
             return this;
         }
 

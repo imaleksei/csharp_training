@@ -1,7 +1,9 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Chrome;
 using System;
 using System.Text;
+using System.Threading;
 
 namespace WebAddressBookTests
 {
@@ -16,11 +18,12 @@ namespace WebAddressBookTests
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
 
-        public ApplicationManager()
+        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
+
+        private ApplicationManager()
         {
             driver = new FirefoxDriver();
             baseURL = "http://localhost/addressbook/";
-            //verificationErrors = new StringBuilder();
 
             loginHelper = new LoginHelper(this);
             navigationHelper = new NavigationHelper(this, baseURL);
@@ -28,16 +31,26 @@ namespace WebAddressBookTests
             contactHelper = new ContactHelper(this);
         }
 
-        public IWebDriver Driver 
+
+        ~ApplicationManager()
         {
-            get 
+            try
             {
-                return driver;
+                driver.Quit();
+                try 
+                {
+                    driver.SwitchTo().Alert().Accept();
+                }
+                catch (Exception) 
+                { 
+                }
+            }
+            catch (Exception)
+            {
             }
         }
-
-
-        public void Stop()
+/*
+        public void ApplicationManagerClose()
         {
             try
             {
@@ -47,8 +60,27 @@ namespace WebAddressBookTests
             {
             }
         }
+*/
+        public static ApplicationManager GetInstance()
+        {
+            if (! app.IsValueCreated)
+            {
+                ApplicationManager newInstance = new ApplicationManager();
+                newInstance.Navigation.GoHomePage();
+                app.Value = newInstance;
+            }
+            return app.Value;
+        }
+
+        public IWebDriver Driver 
+        {
+            get 
+            {
+                return driver;
+            }
+        }
   
-        public LoginHelper Login
+        public LoginHelper Auth
         { get { return loginHelper; } }
 
         public NavigationHelper Navigation
@@ -59,6 +91,5 @@ namespace WebAddressBookTests
 
         public ContactHelper ContactHelper
         { get { return contactHelper; } }
-
     }
 }

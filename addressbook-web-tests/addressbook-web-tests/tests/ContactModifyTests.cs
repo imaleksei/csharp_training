@@ -3,15 +3,15 @@
 namespace WebAddressBookTests
 {
     [TestFixture]
-    internal class ContactModifyTests : TestBase
+    internal class ContactModifyTests : AuthTestBase
     {
         [Test]
         public void ContactModifyTest()
         {
             ContactData addressbookNewData = new ContactData("new-firstname", "new-lastname");
-            addressbookNewData.MiddleName = "new-middlename";
+            addressbookNewData.MiddleName = null;
 
-            app.ContactHelper.Modify("27", addressbookNewData);
+            app.ContactHelper.Modify("35", addressbookNewData);
         }
     }
 }

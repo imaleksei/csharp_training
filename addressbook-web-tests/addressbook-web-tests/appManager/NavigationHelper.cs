@@ -12,24 +12,43 @@ namespace WebAddressBookTests
             this.baseURL = baseURL;
         }
 
-        public void OpenHomePage()
+        public void GoHomePage()
         {
+
+            if (driver.Url == baseURL)
+            {
+                return;
+            }
             driver.Navigate().GoToUrl(baseURL);
-        }
 
-        public void AddNewAddressbook()
-        {
-            driver.FindElement(By.LinkText("add new")).Click();
-        }
-
-        public void GoToHomePage()
-        {
-            driver.FindElement(By.LinkText("home page")).Click();
         }
 
         public void GoToGroupsPage()
         {
+            if (driver.Url == baseURL + "group.php"
+                && IsElementPresent(By.Name("new")))
+            {
+                return;
+            }
             driver.FindElement(By.LinkText("groups")).Click();
+        }
+
+        public void AddNewAddressbook()
+        {
+            if (driver.Url == baseURL + "edit.php")
+            {
+                return;
+            }
+            driver.FindElement(By.LinkText("add new")).Click();
+        }
+
+        public void ReturnToHomePage()
+        {
+            if (driver.Url == baseURL)
+            {
+                return;
+            }
+            driver.FindElement(By.LinkText("home page")).Click();
         }
     }
 }
