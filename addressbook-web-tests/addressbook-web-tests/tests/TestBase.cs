@@ -18,6 +18,7 @@ namespace WebAddressBookTests
         [TearDown]
         public void TeardownTest()
         {
+            app.Login.Logout();
             app.Stop();
         }
     }

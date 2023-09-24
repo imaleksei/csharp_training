@@ -1,14 +1,43 @@
 ﻿using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
+using System;
 
 namespace WebAddressBookTests
 {
     public class ContactHelper : HelperBase
     {
-        private bool acceptNextAlert = true;
+        private bool acceptContactRemovalAlert = true;
 
-        public ContactHelper(IWebDriver driver)
-            : base(driver) { }
+        public ContactHelper(ApplicationManager manager)
+            : base(manager) { }
+
+        public ContactHelper Create(ContactData addressbook)
+        {
+            manager.Navigation.AddNewAddressbook();
+            FillAddressbookForm(addressbook);
+            SubmitAddressbookForm();
+            manager.Navigation.GoToHomePage();
+            return this;
+        }
+
+        public ContactHelper Modify(ContactData addressbookNewData)
+        {
+            InitAddressbookElementEditing();
+            FillAddressbookForm(addressbookNewData);
+            SubmitAddressbookElementEditing();
+            manager.Navigation.GoToHomePage();
+            return this;
+        }
+
+        public ContactHelper Remove(string p)
+        {
+            ChooseAddressbookElement(p);
+            SubmitAddressbookElementDeleting();
+            AcceptContactRemovalAlert();
+            return this;
+        }
+
+        //---
 
         public ContactHelper FillAddressbookForm(ContactData addressbook)
         {
@@ -34,8 +63,6 @@ namespace WebAddressBookTests
             driver.FindElement(By.Name("address")).Click();
             driver.FindElement(By.Name("address")).Clear();
             driver.FindElement(By.Name("address")).SendKeys(addressbook.Address);
-            driver.FindElement(By.Name("theform")).Click();
-            driver.FindElement(By.Name("theform")).Click();
             driver.FindElement(By.Name("home")).Click();
             driver.FindElement(By.Name("home")).Clear();
             driver.FindElement(By.Name("home")).SendKeys(addressbook.Home);
@@ -61,7 +88,6 @@ namespace WebAddressBookTests
             driver.FindElement(By.Name("email3")).Click();
             driver.FindElement(By.Name("email3")).Clear();
             driver.FindElement(By.Name("email3")).SendKeys(addressbook.EmailThree);
-            driver.FindElement(By.Name("homepage")).Click();
             driver.FindElement(By.Name("homepage")).Click();
             driver.FindElement(By.Name("homepage")).Clear();
             driver.FindElement(By.Name("homepage")).SendKeys(addressbook.Homepage);
@@ -121,13 +147,13 @@ namespace WebAddressBookTests
             return this;
         }
         
-    public string AcceptAlert()
+        public string AcceptContactRemovalAlert()
         {
             try
             {
                 IAlert alert = driver.SwitchTo().Alert();
                 string alertText = alert.Text;
-                if (acceptNextAlert)
+                if (acceptContactRemovalAlert)
                 {
                     alert.Accept();
                 }
@@ -139,7 +165,7 @@ namespace WebAddressBookTests
             }
             finally
             {
-                acceptNextAlert = true;
+                acceptContactRemovalAlert = true;
             }
         }
     }

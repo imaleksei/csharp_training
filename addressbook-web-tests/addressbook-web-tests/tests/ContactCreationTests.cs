@@ -9,13 +9,9 @@ namespace WebAddressBookTests
         [Test]
         public void AddressbookCreationTest()
         {
-            app.Navigation.AddNewAddressbook();
             ContactData addressbook = new ContactData("firstname", "lastname");
-            app.ContactHelper
-                .FillAddressbookForm(addressbook)
-                .SubmitAddressbookForm();
-            app.Navigation.GoToHomePage();
-            app.Login.Logout();
+
+            app.ContactHelper.Create(addressbook);
         }
     }
 }

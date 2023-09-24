@@ -8,10 +8,10 @@ namespace WebAddressBookTests
         [Test]
         public void ContactModifyTest()
         {
-            app.ContactHelper.InitAddressbookElementEditing();
-            ContactData addressbook = new ContactData("new-firstname", "new-lastname");
-            app.ContactHelper.SubmitAddressbookElementEditing();
-            app.Login.Logout();
+            ContactData addressbookNewData = new ContactData("new-firstname", "new-lastname");
+            addressbookNewData.MiddleName = "new-middlename";
+
+            app.ContactHelper.Modify(addressbookNewData);
         }
     }
 }

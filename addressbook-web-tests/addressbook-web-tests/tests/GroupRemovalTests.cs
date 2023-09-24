@@ -8,12 +8,7 @@ namespace WebAddressBookTests
         [Test]
         public void GroupRemovalTest()
         {
-            app.Navigation.GoToGroupsPage();
-            app.GroupHelper
-                .SelectGroup(2)
-                .RemoveGroup()
-                .ReturnToGroupsPage();
-            app.Login.Logout();
+            app.GroupHelper.Remove(1);
         }
     }
 }
