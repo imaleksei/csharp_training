@@ -20,8 +20,9 @@ namespace WebAddressBookTests
             return this;
         }
 
-        public ContactHelper Modify(ContactData addressbookNewData)
+        public ContactHelper Modify(string p, ContactData addressbookNewData)
         {
+            ChooseAddressbookElement(p);
             InitAddressbookElementEditing();
             FillAddressbookForm(addressbookNewData);
             SubmitAddressbookElementEditing();
