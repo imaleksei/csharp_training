@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
-using System;
 
 namespace WebAddressBookTests
 {
@@ -20,7 +19,7 @@ namespace WebAddressBookTests
             return this;
         }
 
-        public ContactHelper Modify(string p, ContactData addressbookNewData)
+        public ContactHelper Modify(int p, ContactData addressbookNewData)
         {
             ChooseAddressbookElement(p);
             InitAddressbookElementEditing();
@@ -30,7 +29,7 @@ namespace WebAddressBookTests
             return this;
         }
 
-        public ContactHelper Remove(string p)
+        public ContactHelper Remove(int p)
         {
             ChooseAddressbookElement(p);
             SubmitAddressbookElementDeleting();
@@ -80,9 +79,9 @@ namespace WebAddressBookTests
             return this;
         }
 
-        public ContactHelper ChooseAddressbookElement(string indexString)
+        public ContactHelper ChooseAddressbookElement(int index)
         {
-            driver.FindElement(By.Id(indexString)).Click();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + index + "]/td")).Click();
             return this;
         }
 

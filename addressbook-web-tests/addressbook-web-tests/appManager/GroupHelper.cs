@@ -23,7 +23,7 @@ namespace WebAddressBookTests
         public GroupHelper Remove(int p)
         {
             manager.Navigation.GoToGroupsPage();
-            //IsGroupElementExists(p, group);
+           
             SelectGroup(p);
             RemoveGroup();
             ReturnToGroupsPage();

@@ -11,7 +11,7 @@ namespace WebAddressBookTests
             ContactData addressbookNewData = new ContactData("new-firstname", "new-lastname");
             addressbookNewData.MiddleName = null;
 
-            app.ContactHelper.Modify("35", addressbookNewData);
+            app.ContactHelper.Modify(2, addressbookNewData);
         }
     }
 }
