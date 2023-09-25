@@ -21,6 +21,8 @@ namespace WebAddressBookTests
 
         public ContactHelper Modify(int p, ContactData addressbookNewData)
         {
+            IsAddressbookElementExistsIfNotThenCreate(p);
+
             ChooseAddressbookElement(p);
             InitAddressbookElementEditing();
             FillAddressbookForm(addressbookNewData);
@@ -31,6 +33,8 @@ namespace WebAddressBookTests
 
         public ContactHelper Remove(int p)
         {
+            IsAddressbookElementExistsIfNotThenCreate(p);
+
             ChooseAddressbookElement(p);
             SubmitAddressbookElementDeleting();
             AcceptContactRemovalAlert();
@@ -38,6 +42,20 @@ namespace WebAddressBookTests
         }
 
         //---
+
+        public ContactHelper IsAddressbookElementExistsIfNotThenCreate(int index)
+        {
+            try
+            {
+                bool element = driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + index + "]/td")).Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+                ContactData contactNewCreated = new ContactData("newly-created-firstname", "newly-created-lastname");
+                this.Create(contactNewCreated);
+            }
+            return this;
+        }
 
         public ContactHelper FillAddressbookForm(ContactData addressbook)
         {
