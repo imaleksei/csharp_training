@@ -22,7 +22,6 @@ namespace WebAddressBookTests
         public GroupHelper Remove(int p)
         {
             manager.Navigation.GoToGroupsPage();
-            IsGroupElementExistsIfNotThenCreate(p);
             
             SelectGroup(p);
             RemoveGroup();
@@ -33,7 +32,6 @@ namespace WebAddressBookTests
         public GroupHelper Modify(int p, GroupData newGroupData)
         {
             manager.Navigation.GoToGroupsPage();
-            IsGroupElementExistsIfNotThenCreate(p);
 
             SelectGroup(p);
             InitEditionGroup();

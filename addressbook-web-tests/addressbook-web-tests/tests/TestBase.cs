@@ -4,7 +4,6 @@ namespace WebAddressBookTests
 {
     public class TestBase
     {
-
         protected ApplicationManager app;
 
         [SetUp]
@@ -16,7 +15,7 @@ namespace WebAddressBookTests
         [TearDown]
         public void TeardownApplicationManager()
         {
-           ApplicationManager.GetInstance().ApplicationManagerClose();
+            //app.ApplicationManagerClose();
         }
 */
     }

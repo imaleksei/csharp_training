@@ -21,8 +21,6 @@ namespace WebAddressBookTests
 
         public ContactHelper Modify(int p, ContactData addressbookNewData)
         {
-            IsAddressbookElementExistsIfNotThenCreate(p);
-
             ChooseAddressbookElement(p);
             InitAddressbookElementEditing();
             FillAddressbookForm(addressbookNewData);
@@ -33,8 +31,6 @@ namespace WebAddressBookTests
 
         public ContactHelper Remove(int p)
         {
-            IsAddressbookElementExistsIfNotThenCreate(p);
-
             ChooseAddressbookElement(p);
             SubmitAddressbookElementDeleting();
             AcceptContactRemovalAlert();

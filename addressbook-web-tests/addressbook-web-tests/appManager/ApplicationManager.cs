@@ -54,7 +54,7 @@ namespace WebAddressBookTests
         {
             try
             {
-                driver.Quit();
+                driver.Close();
             }
             catch (Exception)
             {
@@ -79,7 +79,7 @@ namespace WebAddressBookTests
                 return driver;
             }
         }
-  
+
         public LoginHelper Auth
         { get { return loginHelper; } }
 

@@ -11,6 +11,7 @@ namespace WebAddressBookTests
             GroupData newGroupData = new GroupData("new-group-name");
             newGroupData.Header = null;
             newGroupData.Footer = null;
+            app.GroupHelper.IsGroupElementExistsIfNotThenCreate(1);
 
             app.GroupHelper.Modify(1, newGroupData);
         }
