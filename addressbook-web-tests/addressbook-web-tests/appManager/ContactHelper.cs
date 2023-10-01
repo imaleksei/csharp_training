@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
+using System.Collections.Generic;
 
 namespace WebAddressBookTests
 {
@@ -43,7 +44,7 @@ namespace WebAddressBookTests
         {
             try
             {
-                bool element = driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + index + "]/td")).Displayed;
+                bool element = driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 2) + "]/td")).Displayed;
             }
             catch (NoSuchElementException)
             {
@@ -95,7 +96,7 @@ namespace WebAddressBookTests
 
         public ContactHelper ChooseAddressbookElement(int index)
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + index + "]/td")).Click();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 2) + "]/td")).Click();
             return this;
         }
 
@@ -137,6 +138,21 @@ namespace WebAddressBookTests
             {
                 acceptContactRemovalAlert = true;
             }
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            //manager.Navigation.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@class = 'odd' or @name = 'entry']"));
+            int count = 0;
+            foreach (IWebElement element in elements)
+            {
+                count++;
+                contacts.Add(new ContactData(element.FindElement(By.XPath("//tr[@class = 'odd' or @name = 'entry'][" + count + "]//td[3]")).Text,
+                    element.FindElement(By.XPath("//tr[@class = 'odd' or @name = 'entry'][" + count + "]//td[2]")).Text));
+            }
+            return contacts;
         }
     }
 }

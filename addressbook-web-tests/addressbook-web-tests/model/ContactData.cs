@@ -1,8 +1,10 @@
 ﻿
 
+using System;
+
 namespace WebAddressBookTests
 {
-    public class ContactData
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string firstName;
         private string lastName;
@@ -333,6 +335,46 @@ namespace WebAddressBookTests
             {
                 photo = value;
             }
+        }
+
+        //---
+
+        public bool Equals(ContactData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (Object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return FirstName == other.FirstName && LastName == other.LastName;
+        }
+
+        public override int GetHashCode()
+        {
+            return FirstName.GetHashCode() + LastName.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return "firstname=" + FirstName + "lastname=" + LastName;
+        }
+
+        public int CompareTo(ContactData other)
+        {
+
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            if (FirstName.CompareTo(other.FirstName) == 0 && LastName.CompareTo(other.LastName) == 0)
+            {
+                return 0;
+            }
+            else
+                return -1;
         }
     }
 }

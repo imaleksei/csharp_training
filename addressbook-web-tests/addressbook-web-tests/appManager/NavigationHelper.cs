@@ -12,7 +12,7 @@ namespace WebAddressBookTests
             this.baseURL = baseURL;
         }
 
-        public void GoHomePage()
+        public void HomePageByUrl()
         {
 
             if (driver.Url == baseURL)
@@ -49,6 +49,15 @@ namespace WebAddressBookTests
                 return;
             }
             driver.FindElement(By.LinkText("home page")).Click();
+        }
+
+        public void GoToHomePage()
+        {
+            if (driver.Url == baseURL)
+            {
+                return;
+            }
+            driver.FindElement(By.LinkText("home")).Click();
         }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using System.Collections.Generic;
 
 namespace WebAddressBookTests
 {
@@ -8,9 +11,17 @@ namespace WebAddressBookTests
         [Test]
         public void ContactRemovalTest()
         {
-            app.ContactHelper.IsAddressbookElementExistsIfNotThenCreate(2);
+            app.ContactHelper.IsAddressbookElementExistsIfNotThenCreate(0);
+            List<ContactData> oldContacts = app.ContactHelper.GetContactList();
 
-            app.ContactHelper.Remove(2);
+            app.ContactHelper.Remove(0);
+            
+            app.Navigation.GoToHomePage();
+            List<ContactData> newContacts = app.ContactHelper.GetContactList();
+            oldContacts.RemoveAt(0);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }

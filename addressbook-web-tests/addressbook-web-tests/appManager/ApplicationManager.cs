@@ -66,7 +66,7 @@ namespace WebAddressBookTests
             if (! app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.Navigation.GoHomePage();
+                newInstance.Navigation.HomePageByUrl();
                 app.Value = newInstance;
             }
             return app.Value;
