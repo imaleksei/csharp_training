@@ -369,12 +369,10 @@ namespace WebAddressBookTests
             {
                 return 1;
             }
-            if (FirstName.CompareTo(other.FirstName) == 0 && LastName.CompareTo(other.LastName) == 0)
-            {
-                return 0;
-            }
             else
-                return -1;
+            {
+                return FirstName.CompareTo(other.FirstName) & LastName.CompareTo(other.LastName);
+            }
         }
     }
 }
