@@ -371,7 +371,7 @@ namespace WebAddressBookTests
             }
             else
             {
-                return this.LastName.Equals(other.LastName) ? this.FirstName.CompareTo(other.LastName) : this.FirstName.CompareTo(other.FirstName);
+                return this.LastName.Equals(other.LastName) ? this.LastName.CompareTo(other.LastName) : this.FirstName.CompareTo(other.FirstName);
             }
         }
     }
