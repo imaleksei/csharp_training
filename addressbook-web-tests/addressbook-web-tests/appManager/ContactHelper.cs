@@ -44,7 +44,8 @@ namespace WebAddressBookTests
         {
             try
             {
-                bool element = driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 2) + "]/td")).Displayed;
+                bool element = driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 2) + "]/td")).Displayed
+                             & driver.FindElement(By.XPath("//img[@alt='Edit']")).Displayed;
             }
             catch (NoSuchElementException)
             {
