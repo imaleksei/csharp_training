@@ -1,6 +1,5 @@
-﻿
-
-using System;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace WebAddressBookTests
 {
@@ -31,6 +30,8 @@ namespace WebAddressBookTests
         private string amonth = "-";
         private string ayear = "";
         private string photo = "C:\\xampp\\TestAdditions\\Capture.PNG";
+        
+        public string allPhones;
 
         public ContactData(string firstName, string lastName)
         {
@@ -337,6 +338,22 @@ namespace WebAddressBookTests
             }
         }
 
+        public string AllPhones
+        {
+            get 
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work) + CleanUp(PhoneTwo)).Trim();
+                }
+            }
+            set { allPhones = value; }
+        }
+
         //---
 
         public bool Equals(ContactData other)
@@ -373,6 +390,15 @@ namespace WebAddressBookTests
             {
                 return this.LastName.Equals(other.LastName) ? this.LastName.CompareTo(other.LastName) : this.FirstName.CompareTo(other.FirstName);
             }
+        }
+
+        public string CleanUp(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
         }
     }
 }
