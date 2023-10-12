@@ -7,10 +7,22 @@ namespace WebAddressBookTests
     public class ContactCreationTests : AuthTestBase
     {
 
-        [Test]
-        public void AddressbookCreationTest()
+        public static IEnumerable<ContactData> RandomContactDataProvider()
         {
-            ContactData addressbook = new ContactData("firstname", "lastname");
+            List<ContactData> contact = new List<ContactData>();
+            for (int i = 0; i < 5; i++)
+            {
+                contact.Add(new ContactData(GenerateRandomString(20), GenerateRandomString(20))
+                {
+                    MiddleName = GenerateRandomString(20)
+                });
+            }
+            return contact;
+        }
+
+        [Test, TestCaseSource("RandomContactDataProvider")]
+        public void AddressbookCreationTest(ContactData addressbook)
+        {
 
             List<ContactData> oldContacts = app.ContactHelper.GetContactList();
 

@@ -1,20 +1,29 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 
 namespace WebAddressBookTests
 {
     [TestFixture]
     public class GroupCreationTests : AuthTestBase
     {
-
-        [Test]
-        public void GroupCreationTest()
+        public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
-            GroupData group = new GroupData("group-name");
-            group.Header = "group-header";
-            group.Footer = "group-footer";
+            List<GroupData> group = new List<GroupData>();
+            for (int i = 0; i < 5; i++)
+            {
+                group.Add(new GroupData(GenerateRandomString(30))
+                {
+                    Header = GenerateRandomString(100),
+                    Footer = GenerateRandomString(100)
+                });
+            }
 
+            return group;
+        }
+
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public void GroupCreationTest(GroupData group)
+        {
             List<GroupData> oldGroups = app.GroupHelper.GetGroupList();
 
             app.GroupHelper.Create(group);

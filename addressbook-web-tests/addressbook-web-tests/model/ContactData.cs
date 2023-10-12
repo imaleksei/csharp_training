@@ -382,7 +382,7 @@ namespace WebAddressBookTests
 
         public override string ToString()
         {
-            return "firstname=" + FirstName + "lastname=" + LastName;
+            return "firstname=" + FirstName + "\nlastname=" + LastName + "\nmiddlename=" + MiddleName;
         }
 
         public int CompareTo(ContactData other)
