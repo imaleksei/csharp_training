@@ -38,6 +38,12 @@ namespace WebAddressBookTests
             this.firstName = firstName;
             this.lastName = lastName;
         }
+
+        public ContactData()
+        {
+
+        }
+
         public string FirstName
         {
             get
@@ -399,6 +405,30 @@ namespace WebAddressBookTests
                 return "";
             }
             return Regex.Replace(phone, "[ -()]", "") + "\r\n";
+        }
+
+        //--
+
+        public string allInfo;
+        public string AllInfo
+        {
+            get
+            {
+                if (allInfo != null)
+                {
+                    return allInfo.Replace(" ", "").Replace("\r\n", "").Replace("H:", "").Replace("M:", "").Replace("W:", "").Replace("F:", "").Replace("Homepage:", "").Replace("P:", "");
+                }
+                else
+                {
+                    return FirstName.Trim() + MiddleName.Trim() + LastName + Nickname + Title + Company
+                        + Address + Home + Mobile + Work + Fax + EmailOne + EmailTwo + EmailThree + Homepage + AddressTwo + PhoneTwo + Notes;
+                }
+
+            }
+            set
+            {
+                allInfo = value;
+            }
         }
     }
 }

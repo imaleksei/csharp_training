@@ -187,16 +187,29 @@ namespace WebAddressBookTests
             ChooseAddressbookElement(index);
             InitAddressbookElementEditing();
             string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string middlename = driver.FindElement(By.Name("middlename")).GetAttribute("value");
             string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
             string phoneTwo = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+            string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
+            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
+            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
+            string address2 = driver.FindElement(By.Name("address2")).GetAttribute("value");
+            string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
 
 
             return new ContactData(lastname, firstname)
             {
+                AllInfo = firstname + middlename + lastname + nickname + title + company +
+            address + homePhone + mobilePhone + workPhone + fax + email + email2 + email3 + homepage + address2 + phoneTwo + notes,
                 Address = address,
                 Home = homePhone,
                 Mobile = mobilePhone,
@@ -204,6 +217,23 @@ namespace WebAddressBookTests
                 PhoneTwo = phoneTwo
             };
 
+        }
+
+        public void GoToContactDetails(int index)
+        {
+            manager.Navigation.GoToHomePage();
+            driver.FindElement(By.XPath("(//form[@name='MainForm']//img[@title='Details'])[" + index + "]")).Click();
+        }
+
+        public ContactData GetContactInformationFromDetails(int index)
+        {
+            manager.Navigation.GoToHomePage();
+            GoToContactDetails(index);
+            string info = driver.FindElement(By.XPath("//div[@id = 'content']")).Text;
+            return new ContactData()
+            {
+                AllInfo = info
+            };
         }
     }
 }
