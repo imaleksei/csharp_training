@@ -42,6 +42,7 @@ namespace WebAddressBookTests
 
         public ContactHelper IsAddressbookElementExistsIfNotThenCreate(int index)
         {
+            manager.Navigation.GoToHomePage();
             try
             {
                 bool element = driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 2) + "]/td")).Displayed
