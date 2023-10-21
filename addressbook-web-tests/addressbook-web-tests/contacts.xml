@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfContactData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ContactData>
+    <FirstName>1:APEMDV,</FirstName>
+    <LastName>C </LastName>
+    <MiddleName>13&lt;!TY</MiddleName>
+    <Nickname>(*1</Nickname>
+    <Title />
+    <Company>[H$DZNPH9</Company>
+    <Address>_M</Address>
+    <Home />
+    <Mobile />
+    <Work />
+    <Fax />
+    <EmailOne />
+    <EmailTwo />
+    <EmailThree />
+    <Homepage />
+    <AddressTwo />
+    <PhoneTwo />
+    <Notes />
+    <Bday>-</Bday>
+    <Bmonth>-</Bmonth>
+    <Byear />
+    <Aday>-</Aday>
+    <Amonth>-</Amonth>
+    <Ayear />
+    <Photo>C:\xampp\TestAdditions\Capture.PNG</Photo>
+    <AllPhones />
+    <AllInfo>1:APEMDV,13&lt;!TYC (*1[H$DZNPH9_M</AllInfo>
+  </ContactData>
+  <ContactData>
+    <FirstName>)=+9C.,J</FirstName>
+    <LastName>[13BVFG(S'</LastName>
+    <MiddleName>F</MiddleName>
+    <Nickname>^Ia]??\H</Nickname>
+    <Title />
+    <Company>4HJX7</Company>
+    <Address>ZF]%3^N</Address>
+    <Home />
+    <Mobile />
+    <Work />
+    <Fax />
+    <EmailOne />
+    <EmailTwo />
+    <EmailThree />
+    <Homepage />
+    <AddressTwo />
+    <PhoneTwo />
+    <Notes />
+    <Bday>-</Bday>
+    <Bmonth>-</Bmonth>
+    <Byear />
+    <Aday>-</Aday>
+    <Amonth>-</Amonth>
+    <Ayear />
+    <Photo>C:\xampp\TestAdditions\Capture.PNG</Photo>
+    <AllPhones />
+    <AllInfo>)=+9C.,JF[13BVFG(S'^Ia]??\H4HJX7ZF]%3^N</AllInfo>
+  </ContactData>
+</ArrayOfContactData>

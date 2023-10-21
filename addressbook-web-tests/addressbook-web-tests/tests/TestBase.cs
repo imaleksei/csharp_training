@@ -26,7 +26,7 @@ namespace WebAddressBookTests
             for (int i = 0; i < l; i++)
             {
                 // Генерация случайных символов. 223  + 32  - Коды символов в соответсвии с таблицей ASCII и все символы меньше 32 непечатные
-                builder.Append(Convert.ToChar(32 + Convert.ToInt32(rnd.NextDouble() * 223)));
+                builder.Append(Convert.ToChar(32 + Convert.ToInt32(rnd.NextDouble() * 65)));
 
             }
             return builder.ToString();
