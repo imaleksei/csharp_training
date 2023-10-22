@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenQA.Selenium.DevTools.V116.Autofill;
+using System;
 using System.Text.RegularExpressions;
 
 namespace WebAddressBookTests
@@ -409,21 +410,52 @@ namespace WebAddressBookTests
 
         //--
 
-        public string allInfo;
+        public string allInfo = null;
         public string AllInfo
         {
             get
             {
-                if (allInfo != null)
+                if (allInfo == null)
                 {
-                    return allInfo.Replace(" ", "").Replace("\r\n", "").Replace("H:", "").Replace("M:", "").Replace("W:", "").Replace("F:", "").Replace("Homepage:", "").Replace("P:", "");
-                }
-                else
-                {
-                    return FirstName.Trim() + MiddleName.Trim() + LastName + Nickname + Title + Company
-                        + Address + Home + Mobile + Work + Fax + EmailOne + EmailTwo + EmailThree + Homepage + AddressTwo + PhoneTwo + Notes;
-                }
+                    if (FirstName != null && FirstName != "") allInfo += FirstName;
+                    
+                    if (MiddleName != null && MiddleName != "") allInfo += " " + MiddleName;
+                    
+                    if (LastName != null && LastName != "") allInfo += " " + LastName;
 
+                    if (Nickname != null && Nickname != "") allInfo += "\r\n" + Nickname;
+
+                    if (Title != null && Title != "") allInfo += "\r\n" + Title;
+
+                    if (Company != null && Company != "") allInfo += "\r\n" + Company;
+
+                    if (Address != null && Address != "") allInfo += "\r\n" + Address;
+
+                    if (Home != null && Home != "") allInfo += "\r\n\r\n" + "H: " + Home; else allInfo += "\r\n";
+
+                    if (Mobile != null && Mobile != "") allInfo += "\r\nM: " + Mobile;
+
+                    if (Work != null && Work != "") allInfo += "\r\n" + "W: " + Work;
+
+                    if (Fax != null && Fax != "") allInfo += "\r\n" + "F: " + Fax;
+
+                    if (EmailOne != null && EmailOne != "") allInfo += "\r\n\r\n" + EmailOne;
+
+                    if (EmailTwo != null && EmailTwo != "") allInfo += "\r\n" + EmailTwo;
+
+                    if (EmailThree != null && EmailThree != "") allInfo += "\r\n" + EmailThree;
+
+                    if (Homepage != null && Homepage != "") allInfo += "\r\n" + "Homepage:\r\n" + Homepage;
+                    
+                    if (AddressTwo != null && AddressTwo != "") allInfo += "\r\n\r\n\r\n" + AddressTwo;
+                    
+                    if (PhoneTwo != null && PhoneTwo != "") allInfo += "\r\n\r\n" + "P: " + PhoneTwo;
+
+                    if (Notes != null && Notes != "") allInfo += "\r\n\r\n" + Notes;
+
+                    return allInfo;
+                }
+                return allInfo;
             }
             set
             {

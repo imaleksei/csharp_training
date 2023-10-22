@@ -20,7 +20,7 @@ namespace WebAddressBookTests
         public void TestContactDetails()
         {
             ContactData fromDetails = app.ContactHelper.GetContactInformationFromDetails(1);
-            ContactData fromEdit = app.ContactHelper.GetContactInformationFromEditForm(0);
+            ContactData fromEdit = app.ContactHelper.GetContactInformationFromEditForm(1);
             Assert.AreEqual(fromEdit.AllInfo, fromDetails.AllInfo);
 
         }

@@ -199,23 +199,32 @@ namespace WebAddressBookTests
             string company = driver.FindElement(By.Name("company")).GetAttribute("value");
             string title = driver.FindElement(By.Name("title")).GetAttribute("value");
             string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
-            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
-            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
-            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string emailOne = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string emailTwo = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string emailThree = driver.FindElement(By.Name("email3")).GetAttribute("value");
             string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
-            string address2 = driver.FindElement(By.Name("address2")).GetAttribute("value");
+            string addressTwo = driver.FindElement(By.Name("address2")).GetAttribute("value");
             string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
 
 
-            return new ContactData(lastname, firstname)
+            return new ContactData(firstname, lastname)
             {
-                AllInfo = firstname + middlename + lastname + nickname + title + company +
-            address + homePhone + mobilePhone + workPhone + fax + email + email2 + email3 + homepage + address2 + phoneTwo + notes,
+                MiddleName = middlename,
                 Address = address,
                 Home = homePhone,
                 Mobile = mobilePhone,
                 Work = workPhone,
-                PhoneTwo = phoneTwo
+                PhoneTwo = phoneTwo,
+                Nickname = nickname,
+                Company = company,
+                Title = title,
+                Fax = fax,
+                EmailOne = emailOne,
+                EmailTwo = emailTwo,
+                EmailThree = emailThree,
+                AddressTwo = addressTwo,
+                Homepage = homepage,
+                Notes = notes
             };
 
         }
@@ -230,10 +239,10 @@ namespace WebAddressBookTests
         {
             manager.Navigation.GoToHomePage();
             GoToContactDetails(index);
-            string info = driver.FindElement(By.XPath("//div[@id = 'content']")).Text;
+            string allInfo = driver.FindElement(By.XPath("//div[@id = 'content']")).Text;
             return new ContactData()
             {
-                AllInfo = info
+                AllInfo = allInfo
             };
         }
     }
