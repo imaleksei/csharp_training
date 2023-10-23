@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Linq;
 
 namespace WebAddressBookTests
 {
@@ -132,6 +133,15 @@ namespace WebAddressBookTests
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+        }
+
+        [Test]
+
+        public void TestDBConnectivity()
+        {
+            AddressBookDB db = new AddressBookDB();
+            List<GroupData> fromDb = (from g in db.Groups select g).ToList();
+            db.Close();
         }
     }
 }

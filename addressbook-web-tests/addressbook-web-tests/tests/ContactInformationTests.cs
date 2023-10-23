@@ -21,7 +21,7 @@ namespace WebAddressBookTests
         {
             ContactData fromDetails = app.ContactHelper.GetContactInformationFromDetails(1);
             ContactData fromEdit = app.ContactHelper.GetContactInformationFromEditForm(1);
-            Assert.AreEqual(fromEdit.AllInfo, fromDetails.AllInfo);
+            Assert.AreEqual(fromDetails.AllInfo, fromEdit.AllInfo);
 
         }
     }

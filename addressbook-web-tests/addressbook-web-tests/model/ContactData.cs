@@ -1,9 +1,11 @@
 ﻿using OpenQA.Selenium.DevTools.V116.Autofill;
 using System;
 using System.Text.RegularExpressions;
+using LinqToDB.Mapping;
 
 namespace WebAddressBookTests
 {
+    [Table(Name = "addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string firstName;
@@ -431,9 +433,9 @@ namespace WebAddressBookTests
 
                     if (Address != null && Address != "") allInfo += "\r\n" + Address;
 
-                    if (Home != null && Home != "") allInfo += "\r\n\r\n" + "H: " + Home; else allInfo += "\r\n";
+                    if (Home != null && Home != "") allInfo += "\r\n\r\n" + "H: " + Home;
 
-                    if (Mobile != null && Mobile != "") allInfo += "\r\nM: " + Mobile;
+                    if (Mobile != null && Mobile != "") allInfo += "\r\n" + "M: " + Mobile;
 
                     if (Work != null && Work != "") allInfo += "\r\n" + "W: " + Work;
 
