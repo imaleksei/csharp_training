@@ -232,7 +232,8 @@ namespace WebAddressBookTests
         public void GoToContactDetails(int index)
         {
             manager.Navigation.GoToHomePage();
-            driver.FindElement(By.XPath("(//form[@name='MainForm']//img[@title='Details'])[" + index + "]")).Click();
+            ChooseAddressbookElement(index);
+            driver.FindElement(By.CssSelector("img[alt=\"Details\"]")).Click();
         }
 
         public ContactData GetContactInformationFromDetails(int index)
