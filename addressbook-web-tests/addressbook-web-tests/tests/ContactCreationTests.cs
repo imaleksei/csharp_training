@@ -1,13 +1,20 @@
-﻿using Newtonsoft.Json;
-using NUnit.Framework;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using Newtonsoft.Json;
 using System.Xml.Serialization;
+using NUnit.Framework;
+using WebAddressbookTests;
 
 namespace WebAddressBookTests
 {
     [TestFixture]
-    public class ContactCreationTests : AuthTestBase
+    public class ContactCreationTests : ContactTestBase
     {
 
         public static IEnumerable<ContactData> RandomContactDataProvider()
@@ -38,14 +45,14 @@ namespace WebAddressBookTests
         }
 
         [Test, TestCaseSource("ContactDataFronJsonFile")]
-        public void AddressbookCreationTest(ContactData addressbook)
+        public void AddressbookCreationTestDB(ContactData addressbook)
         {
 
-            List<ContactData> oldContacts = app.ContactHelper.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
 
             app.ContactHelper.Create(addressbook);
-
-            List<ContactData> newContacts = app.ContactHelper.GetContactList();
+            
+            List<ContactData> newContacts = ContactData.GetAll();
             oldContacts.Add(addressbook);
             oldContacts.Sort();
             newContacts.Sort();

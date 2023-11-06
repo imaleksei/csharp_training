@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WebAddressBookTests
 {
@@ -38,6 +39,18 @@ namespace WebAddressBookTests
             SelectGroup(p);
             InitEditionGroup();
             FillGroupForm(newGroupData);
+            SubmitEditionGroup();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+        public GroupHelper Modify(GroupData group, GroupData groupModificate)
+        {
+            manager.Navigation.GoToGroupsPage();
+
+            SelectGroup(group.Id);
+            InitEditionGroup();
+            FillGroupForm(groupModificate);
             SubmitEditionGroup();
             ReturnToGroupsPage();
             return this;
@@ -127,6 +140,29 @@ namespace WebAddressBookTests
                 }
             }
             return new List<GroupData>(groupCache);
+        }
+
+        public bool IsGroupPresent()
+        {
+            return IsElementPresent(By.XPath("//span[@class = 'group']"));
+        }
+
+        public GroupHelper SelectGroup(String id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
+            return this;
+        }
+
+        public int GetGroupCount()
+        {
+            return driver.FindElements(By.CssSelector("span.group")).Count();
+        }
+
+        public GroupHelper Remove(GroupData group)
+        {
+            SelectGroup(group.Id);
+            RemoveGroup();
+            return this;
         }
     }
 }

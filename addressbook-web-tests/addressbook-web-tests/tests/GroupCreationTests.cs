@@ -5,11 +5,12 @@ using System.IO;
 using System.Xml.Serialization;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Linq;
+using System;
 
 namespace WebAddressBookTests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -135,13 +136,18 @@ namespace WebAddressBookTests
             Assert.AreEqual(oldGroups, newGroups);
         }
 
-        [Test]
-
-        public void TestDBConnectivity()
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
+        public void GroupCreationTestDB(GroupData group)
         {
-            AddressBookDB db = new AddressBookDB();
-            List<GroupData> fromDb = (from g in db.Groups select g).ToList();
-            db.Close();
+            List<GroupData> oldGroups = GroupData.GetAll();
+            app.GroupHelper.Create(group);
+            app.Navigation.ReturnToGroupsPage();
+            Assert.AreEqual(oldGroups.Count + 1, app.GroupHelper.GetGroupCount());
+            List<GroupData> newGroups = GroupData.GetAll();
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

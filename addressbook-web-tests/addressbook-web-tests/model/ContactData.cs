@@ -1,7 +1,8 @@
-﻿using OpenQA.Selenium.DevTools.V116.Autofill;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 using LinqToDB.Mapping;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebAddressBookTests
 {
@@ -47,6 +48,13 @@ namespace WebAddressBookTests
 
         }
 
+        [Column(Name = "id"), PrimaryKey]
+        public string Id
+        {
+            get; set;
+        }
+
+        [Column(Name = "firstname")]
         public string FirstName
         {
             get
@@ -59,6 +67,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "lastname")]
         public string LastName
         {
             get
@@ -71,6 +80,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "middlename")]
         public string MiddleName
         {
             get
@@ -83,6 +93,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "nickname")]
         public string Nickname
         {
             get
@@ -95,6 +106,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "title")]
         public string Title
         {
             get
@@ -107,6 +119,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "company")]
         public string Company
         {
             get
@@ -119,6 +132,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "address")]
         public string Address
         {
             get
@@ -131,6 +145,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "home")]
         public string Home
         {
             get
@@ -143,6 +158,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "mobile")]
         public string Mobile
         {
             get
@@ -155,6 +171,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "work")]
         public string Work
         {
             get
@@ -167,6 +184,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "fax")]
         public string Fax
         {
             get
@@ -179,6 +197,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "email")]
         public string EmailOne
         {
             get
@@ -191,6 +210,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "email2")]
         public string EmailTwo
         {
             get
@@ -203,6 +223,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "email3")]
         public string EmailThree
         {
             get
@@ -215,6 +236,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "homepage")]
         public string Homepage
         {
             get
@@ -227,6 +249,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "address2")]
         public string AddressTwo
         {
             get
@@ -239,6 +262,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "phone2")]
         public string PhoneTwo
         {
             get
@@ -251,6 +275,11 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "deprecated")]
+        public string Deprecated
+        { get; set; }
+
+        [Column(Name = "notes")]
         public string Notes
         {
             get
@@ -263,6 +292,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "bday")]
         public string Bday
         {
             get
@@ -275,6 +305,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "bmonth")]
         public string Bmonth
         {
             get
@@ -287,6 +318,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "byear")]
         public string Byear
         {
             get
@@ -299,6 +331,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "aday")]
         public string Aday
         {
             get
@@ -311,6 +344,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "amonth")]
         public string Amonth
         {
             get
@@ -323,6 +357,7 @@ namespace WebAddressBookTests
             }
         }
 
+        [Column(Name = "ayear")]
         public string Ayear
         {
             get
@@ -334,7 +369,8 @@ namespace WebAddressBookTests
                 ayear = value;
             }
         }
-       
+
+        [Column(Name = "photo")]
         public string Photo
         {
             get
@@ -462,6 +498,16 @@ namespace WebAddressBookTests
             set
             {
                 allInfo = value;
+            }
+        }
+
+        //--
+
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
             }
         }
     }

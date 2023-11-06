@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using System.Collections.Generic;
+using System;
 
 namespace WebAddressBookTests
 {
@@ -30,9 +31,27 @@ namespace WebAddressBookTests
             return this;
         }
 
+        public ContactHelper Modify(ContactData contact, ContactData addressbookNewData)
+        {
+            SelectContact(contact.Id);
+            InitAddressbookElementEditing();
+            FillAddressbookForm(addressbookNewData);
+            SubmitAddressbookElementEditing();
+            manager.Navigation.ReturnToHomePage();
+            return this;
+        }
+
         public ContactHelper Remove(int p)
         {
             ChooseAddressbookElement(p);
+            SubmitAddressbookElementDeleting();
+            AcceptContactRemovalAlert();
+            return this;
+        }
+
+        public ContactHelper Remove(ContactData contact)
+        {
+            SelectContact(contact.Id);
             SubmitAddressbookElementDeleting();
             AcceptContactRemovalAlert();
             return this;
@@ -170,6 +189,17 @@ namespace WebAddressBookTests
             return new List<ContactData>(contactCache);
         }
 
+        public ContactHelper SelectContact(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value = '" + id + "'])")).Click();
+            return this;
+        }
+
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.XPath("//tr[@class = 'odd' or @name = 'entry']")).Count;
+        }
+
         //---
 
         public ContactData GetContactInformationFromTable(int index)
@@ -249,6 +279,61 @@ namespace WebAddressBookTests
             {
                 AllInfo = allInfo
             };
+        }
+
+        private void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
+        private void SelectContactById(string contactId)
+        {
+            driver.FindElement(By.Id(contactId)).Click();
+        }
+
+        private void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        private void ComitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigation.GoToHomePage();
+            ClearGroupFilter();
+            SelectContactById(contact.Id);
+            SelectGroupToAdd(group.Name);
+            ComitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void GroupFilterByName(String groupName)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(groupName);
+        }
+        public void RemoveContactFromgroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigation.GoToHomePage();
+            GroupFilterByName(group.Name);
+            SelectContactById(contact.Id);
+            RemoveContactFromgroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+            manager.Navigation.GoToHomePage();
+
+        }
+
+        public bool IsContactPresent()
+        {
+            return IsElementPresent(By.XPath("//tr[@class = 'odd' or @name = 'entry']"));
         }
     }
 }
