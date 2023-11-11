@@ -34,10 +34,8 @@ namespace WebAddressBookTests
         public ContactHelper Modify(ContactData contact, ContactData addressbookNewData)
         {
             SelectContact(contact.Id);
-            InitAddressbookElementEditing();
             FillAddressbookForm(addressbookNewData);
             SubmitAddressbookElementEditing();
-            manager.Navigation.ReturnToHomePage();
             return this;
         }
 
@@ -53,7 +51,6 @@ namespace WebAddressBookTests
         {
             SelectContact(contact.Id);
             SubmitAddressbookElementDeleting();
-            AcceptContactRemovalAlert();
             return this;
         }
 
@@ -176,7 +173,6 @@ namespace WebAddressBookTests
             if (contactCache == null) 
             {
                 contactCache = new List<ContactData>();
-                //manager.Navigation.GoToHomePage();
                 ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@class = 'odd' or @name = 'entry']"));
                 int count = 0;
                 foreach (IWebElement element in elements)
@@ -191,7 +187,7 @@ namespace WebAddressBookTests
 
         public ContactHelper SelectContact(string id)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value = '" + id + "'])")).Click();
+            driver.FindElement(By.XPath("//input[@name='selected[]' and @value='" + id + "']/ancestor::tr//img[@title='Edit']")).Click();
             return this;
         }
 

@@ -12,11 +12,11 @@ namespace WebAddressBookTests
         [Test]
         public void ContactRemovalTest()
         {
-            app.ContactHelper.IsAddressbookElementExistsIfNotThenCreate(0);
+            app.ContactHelper.IsAddressbookElementExistsIfNotThenCreate(1);
             List<ContactData> oldContacts = ContactData.GetAll();
             if (app.ContactHelper.IsContactPresent())
             {
-                ContactData contactToBeRemoved = oldContacts[0];
+                ContactData contactToBeRemoved = oldContacts[1];
                 app.ContactHelper.Remove(contactToBeRemoved);
             }
             else
@@ -41,7 +41,7 @@ namespace WebAddressBookTests
             List<ContactData> newContacts = ContactData.GetAll();
             if (oldContacts.Count > 0)
             {
-                oldContacts.RemoveAt(0);
+                oldContacts.RemoveAt(1);
             }
             Assert.AreEqual(oldContacts, newContacts);
         }
