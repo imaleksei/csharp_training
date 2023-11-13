@@ -157,18 +157,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="config_inc.php" />
-    <None Include="Connected Services\Mantis\configuration91.svcinfo" />
-    <None Include="Connected Services\Mantis\configuration.svcinfo" />
     <None Include="Connected Services\Mantis\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="OpenAPIs\mantisconnect.php">
-      <CodeGenerator>NSwagCSharp</CodeGenerator>
-      <SourceUri>http://localhost/mantisbt-2.26.0/api/soap/mantisconnect.php%3fwsdl</SourceUri>
-    </Content>
+    <None Include="Connected Services\Mantis\configuration.svcinfo" />
+    <None Include="Connected Services\Mantis\configuration91.svcinfo" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
